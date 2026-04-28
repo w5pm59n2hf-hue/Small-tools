@@ -1,0 +1,33 @@
+full_dot = '●'
+empty_dot = '○'
+
+def create_character(name,STR,INT,CHA):
+    if not isinstance(name,str):
+        return'The character name should be a string'
+    if  not name:
+        #==False 错误
+        return'The character should have a name'
+    if len(name)>10:
+        return'The character name is too long'
+    if ' ' in name:
+        return'The character name should not contain spaces'
+    if not all(isinstance(x,int)for x in(STR,INT,CHA)):
+        #新语法,(STR,INT,CHA)是一个tuple
+        return'All stats should be integers'
+    if any(x<1for x in(STR,INT,CHA)):
+        return 'All stats should be no less than 1'
+    if any(x>4for x in(STR,INT,CHA)):
+        return 'All stats should be no more than 4'
+    if sum([STR,INT,CHA])!=7:
+        #只接受可迭代对象，所以只能用list不能用tuple
+        return'The character should start with 7 points'
+    line1= name
+    line2=f"STR {STR*full_dot}{(10-STR)*empty_dot}"
+    line3=f"INT {INT*full_dot}{(10-INT)*empty_dot}"
+    line4=f"CHA {CHA*full_dot}{(10-CHA)*empty_dot}"
+    #数完点数发现10个点
+    #line2 = "STR "+(STR*full_dot)+((10-STR)*empty_dot)非常难看且容易出错，用f"str  {}"很方便，{}包住变量即可
+    return f"{line1}\n{line2}\n{line3}\n{line4}"
+
+character=create_character('ren',4,2,1)
+print(character)
